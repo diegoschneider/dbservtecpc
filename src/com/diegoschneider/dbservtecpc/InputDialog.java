@@ -63,7 +63,18 @@ public class InputDialog extends JDialog implements ActionListener{
 				contentPanel.add(label, gbc_label);
 			}
 			{  
-				JTextField textField = new JTextField();
+				final JTextField textField = new JTextField();
+				textField.addFocusListener(new java.awt.event.FocusAdapter() {
+				    public void focusGained(java.awt.event.FocusEvent evt) {
+				    	textField.selectAll();
+				        /*SwingUtilities.invokeLater(new Runnable() {
+				            @Override
+				            public void run() {
+				                textField.selectAll();
+				            }
+				        });*/
+				    }
+				});
 				textfields.add(textField);
 				GridBagConstraints gbc_textField = new GridBagConstraints();
 				gbc_textField.fill = GridBagConstraints.HORIZONTAL;
@@ -118,9 +129,6 @@ public class InputDialog extends JDialog implements ActionListener{
 	}
 	
 	public void okPressed() {
-		/*ArrayList<String> values = getValues();
-		System.out.println(values.toString());
-		this.pack();*/
 	}
 	
 	public ArrayList<String> getValues() {

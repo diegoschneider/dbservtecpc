@@ -4,14 +4,16 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
 
 
-public class NewClientDialog extends InputDialog {
+
+public class NewClientDialog extends ClientDialog {
 
 	private static final long serialVersionUID = -3098292040902585698L;
 	
 	public NewClientDialog() {
-		super("Nuevo cliente", new String[] {"Nombre", "Apellido", "Dirección", "Teléfono", "Teléfono2"});
+		super();
 		setActionListeners(this);
 	}
 	
@@ -25,11 +27,11 @@ public class NewClientDialog extends InputDialog {
 				stmt.setString(i++, string);
 			}
 			stmt.execute();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
 			PanelClientes.ReloadTable();
 			this.dispose();
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Error al guardar el dato", "Error", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
 		}
 	}
 	
