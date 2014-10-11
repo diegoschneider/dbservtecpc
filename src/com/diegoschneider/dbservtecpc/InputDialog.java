@@ -2,7 +2,6 @@ package com.diegoschneider.dbservtecpc;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -17,7 +16,6 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 
 public class InputDialog extends JDialog implements ActionListener{
 
@@ -27,29 +25,8 @@ public class InputDialog extends JDialog implements ActionListener{
 	private ArrayList<JTextField> textfields = new ArrayList<JTextField>();
 	private JButton okButton;
 	private JButton cancelButton;
-
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					
-					UIManager.setLookAndFeel(
-							UIManager.getSystemLookAndFeelClassName());
-					String[] fields = {"Test1","Test2", "Test3"};
-					InputDialog frame = new InputDialog("Test", fields);
-					frame.setVisible(true);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 	
 	
-	/**
-	 * Create the dialog.
-	 */
 	public InputDialog(String title, String[] fields) {
 		this.setTitle(title);
 		EscapeListener.addEscapeListener(this);
@@ -60,8 +37,6 @@ public class InputDialog extends JDialog implements ActionListener{
 		getContentPane().setLayout(new BorderLayout());
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		GridBagLayout gbl_contentPanel = new GridBagLayout();
-		//gbl_contentPanel.columnWidths = new int[]{0, 0, 0};
-		//gbl_contentPanel.rowHeights = new int[]{0, 0, 0};
 		gbl_contentPanel.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		gbl_contentPanel.rowWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
 		contentPanel.setLayout(gbl_contentPanel);
@@ -123,7 +98,6 @@ public class InputDialog extends JDialog implements ActionListener{
 		Dimension size = getSize();
 		size = new Dimension(size.width+100, size.height);
 		setMinimumSize(size);
-		setActionListeners(this);
 	}
 	
 	public void setActionListeners(InputDialog gd) {
@@ -143,18 +117,26 @@ public class InputDialog extends JDialog implements ActionListener{
 		}
 	}
 	
-	private void okPressed() {
-		ArrayList<String> values = getValues();
+	public void okPressed() {
+		/*ArrayList<String> values = getValues();
 		System.out.println(values.toString());
-		this.pack();
+		this.pack();*/
 	}
 	
 	public ArrayList<String> getValues() {
-		ArrayList<String> values = new ArrayList<String>();
+		ArrayList<String> data = new ArrayList<String>();
 		for (JTextField tf : textfields) {
-			values.add(tf.getText());
+			data.add(tf.getText());
 		}
-		return values;
+		return data;
 	}
 
+	public void setValues(ArrayList<String> data) {
+		int i = 0;
+		for (String string : data) {
+			textfields.get(i).setText(string);
+			i++;
+		}
+	}
+	
 }

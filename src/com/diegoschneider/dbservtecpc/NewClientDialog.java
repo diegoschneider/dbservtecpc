@@ -6,28 +6,24 @@ import java.util.ArrayList;
 
 
 
-public class NewClientDialog extends ClientDialog {
+public class NewClientDialog extends InputDialog {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3098292040902585698L;
 	
 	public NewClientDialog() {
-		super();
+		super("Nuevo cliente", new String[] {"Nombre", "Apellido", "Dirección", "Teléfono", "Teléfono2"});
 		setActionListeners(this);
 	}
 	
 	public void okPressed() {
-		ArrayList<Object> data = getValues();
+		ArrayList<String> data = getValues();
 		String sql = "INSERT INTO clientes(nombre, apellido, direccion, telefono, telefono2) values(?,?,?,?,?)";
 		try {
 			PreparedStatement stmt = MainWindow.con.prepareStatement(sql);
-			stmt.setString(1, data.get(0).toString());
-			stmt.setString(2, data.get(1).toString());
-			stmt.setString(3, data.get(2).toString());
-			stmt.setString(4, data.get(3).toString());
-			stmt.setString(5, data.get(4).toString());
+			int i = 1;
+			for (String string : data) {
+				stmt.setString(i++, string);
+			}
 			stmt.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
