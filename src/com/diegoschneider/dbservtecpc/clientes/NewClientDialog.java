@@ -1,10 +1,12 @@
-package com.diegoschneider.dbservtecpc;
+package com.diegoschneider.dbservtecpc.clientes;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+
+import com.diegoschneider.dbservtecpc.MainWindow;
 
 
 

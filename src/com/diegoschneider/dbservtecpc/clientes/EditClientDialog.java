@@ -1,4 +1,4 @@
-package com.diegoschneider.dbservtecpc;
+package com.diegoschneider.dbservtecpc.clientes;
 
 import java.awt.event.WindowEvent;
 import java.sql.PreparedStatement;
@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+
+import com.diegoschneider.dbservtecpc.MainWindow;
 
 
 public class EditClientDialog extends ClientDialog {
