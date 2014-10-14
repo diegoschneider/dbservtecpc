@@ -4,13 +4,12 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 
 
 public class NewClientDialog extends ClientDialog {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -3098292040902585698L;
 	
 	public NewClientDialog() {
@@ -19,21 +18,20 @@ public class NewClientDialog extends ClientDialog {
 	}
 	
 	public void okPressed() {
-		ArrayList<Object> data = getValues();
+		ArrayList<String> data = getValues();
 		String sql = "INSERT INTO clientes(nombre, apellido, direccion, telefono, telefono2) values(?,?,?,?,?)";
 		try {
 			PreparedStatement stmt = MainWindow.con.prepareStatement(sql);
-			stmt.setString(1, data.get(0).toString());
-			stmt.setString(2, data.get(1).toString());
-			stmt.setString(3, data.get(2).toString());
-			stmt.setString(4, data.get(3).toString());
-			stmt.setString(5, data.get(4).toString());
+			int i = 1;
+			for (String string : data) {
+				stmt.setString(i++, string);
+			}
 			stmt.execute();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
 			PanelClientes.ReloadTable();
 			this.dispose();
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, "Error al guardar el dato", "Error", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
 		}
 	}
 	
