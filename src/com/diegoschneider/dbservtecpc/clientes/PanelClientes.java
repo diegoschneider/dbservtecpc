@@ -4,18 +4,16 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
-import com.diegoschneider.dbservtecpc.FillTable;
 import com.diegoschneider.dbservtecpc.MainWindow;
-
+import com.diegoschneider.dbservtecpc.clientes.ClientTable;
 public class PanelClientes {
 
 	private static ClientTable table_clientes;
@@ -29,14 +27,14 @@ public class PanelClientes {
 		scrollPane.setBounds(10, 11, 409, 328);
 		panel_clientes.add(scrollPane);
 		
-		table_clientes = new ClientTable();
+		try {
+			table_clientes = new ClientTable();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			JOptionPane.showMessageDialog(scrollPane, "Error al cargar los clientes", "Error", JOptionPane.ERROR_MESSAGE);
+		}
 		
 		scrollPane.setViewportView(table_clientes);
-		try {
-			table_clientes.setModel(ClientesTableModel());
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 350, 409, 23);
@@ -86,17 +84,10 @@ public class PanelClientes {
 	
 	public static void ReloadTable() {
 		try {
-			table_clientes.setModel(ClientesTableModel());
+			table_clientes.ReloadTable();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public static FillTable ClientesTableModel() throws SQLException {
-		Statement stmt = MainWindow.con.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT id,nombre, apellido, direccion, telefono, telefono2 FROM clientes");
-		FillTable model = new FillTable(rs);
-		return model;
 	}
 	
 }
