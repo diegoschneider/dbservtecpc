@@ -16,6 +16,10 @@ public class ClientPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private static ClientTable table_clientes;
 	
+	/**
+	 * Crea el panel de clientes
+	 * @param tabbedPane TabbedPane en el cual ubicar el panel
+	 */
 	public ClientPanel(JTabbedPane tabbedPane) {
 		//Creamos el panel y lo agregamos al padre
 		super();

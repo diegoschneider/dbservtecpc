@@ -22,15 +22,14 @@ public class EditClientDialog extends ClientDialog {
 	
 	public void okPressed() {
 		ArrayList<String> data = getValues();
+		data.add(Integer.toString(this.id));
 		String sql = "UPDATE clientes SET nombre=?, apellido=?, direccion=?, telefono=?, telefono2=? WHERE id=?";
 		try {
 			PreparedStatement stmt = MainWindow.con.prepareStatement(sql);
-			stmt.setString(1, data.get(0));
-			stmt.setString(2, data.get(1));
-			stmt.setString(3, data.get(2));
-			stmt.setString(4, data.get(3));
-			stmt.setString(5, data.get(4));
-			stmt.setInt(6, this.id);
+			int i = 1;
+			for (String string : data) {
+				stmt.setString(i++, string);
+			}
 			stmt.execute();
 			ClientPanel.ReloadTable();
 			this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
