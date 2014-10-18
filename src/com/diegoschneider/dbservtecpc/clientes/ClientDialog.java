@@ -13,14 +13,14 @@ import com.diegoschneider.dbservtecpc.MainWindow;
 public class ClientDialog extends InputDialog {
 
 	private static final long serialVersionUID = 1L;
-
+	private static String[] columns = {"Nombre", "Apellido", "Dirección", "Teléfono", "Teléfono2"};
 	public ClientDialog() {
-		super("Nuevo cliente", new String[] {"Nombre", "Apellido", "Dirección", "Teléfono", "Teléfono2"});
+		super("Nuevo cliente", columns);
 		setActionListeners(this);
 	}
 	
 	public ClientDialog(int id) {
-		super("Editar cliente", new String[] {"Nombre", "Apellido", "Dirección", "Teléfono", "Teléfono2"});
+		super("Editar cliente", columns);
 		Statement stmt;
 		try {
 			ArrayList<String> data = new ArrayList<String>();
