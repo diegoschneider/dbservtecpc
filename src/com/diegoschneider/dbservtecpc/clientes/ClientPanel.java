@@ -11,12 +11,12 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
-public class PanelClientes extends JPanel {
+public class ClientPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 	private static ClientTable table_clientes;
 	
-	public PanelClientes(JTabbedPane tabbedPane) {
+	public ClientPanel(JTabbedPane tabbedPane) {
 		//Creamos el panel y lo agregamos al padre
 		super();
 		tabbedPane.addTab("Clientes", null, this, null);
