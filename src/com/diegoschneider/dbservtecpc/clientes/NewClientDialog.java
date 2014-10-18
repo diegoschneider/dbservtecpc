@@ -28,7 +28,7 @@ public class NewClientDialog extends ClientDialog {
 				stmt.setString(i++, string);
 			}
 			stmt.execute();
-			PanelClientes.ReloadTable();
+			ClientPanel.ReloadTable();
 			this.dispose();
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Error al guardar el dato", "Error", JOptionPane.ERROR_MESSAGE);

@@ -32,7 +32,7 @@ public class EditClientDialog extends ClientDialog {
 			stmt.setString(5, data.get(4));
 			stmt.setInt(6, this.id);
 			stmt.execute();
-			PanelClientes.ReloadTable();
+			ClientPanel.ReloadTable();
 			this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Error al guardar el dato", "Error", JOptionPane.ERROR_MESSAGE);
