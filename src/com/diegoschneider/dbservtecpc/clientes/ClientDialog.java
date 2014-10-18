@@ -1,10 +1,13 @@
-package com.diegoschneider.dbservtecpc;
+package com.diegoschneider.dbservtecpc.clientes;
 
 import java.awt.event.WindowEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import com.diegoschneider.dbservtecpc.InputDialog;
+import com.diegoschneider.dbservtecpc.MainWindow;
 
 
 public class ClientDialog extends InputDialog {

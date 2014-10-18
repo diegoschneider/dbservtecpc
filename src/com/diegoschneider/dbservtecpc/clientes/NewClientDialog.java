@@ -1,10 +1,12 @@
-package com.diegoschneider.dbservtecpc;
+package com.diegoschneider.dbservtecpc.clientes;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
+
+import com.diegoschneider.dbservtecpc.MainWindow;
 
 
 
@@ -17,6 +19,7 @@ public class NewClientDialog extends ClientDialog {
 		setActionListeners(this);
 	}
 	
+	// TODO Los clientes se crean dos veces 
 	public void okPressed() {
 		ArrayList<String> data = getValues();
 		String sql = "INSERT INTO clientes(nombre, apellido, direccion, telefono, telefono2) values(?,?,?,?,?)";

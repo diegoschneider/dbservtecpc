@@ -1,22 +1,22 @@
-package com.diegoschneider.dbservtecpc;
+package com.diegoschneider.dbservtecpc.clientes;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
-import javax.swing.JTable;
 
+import com.diegoschneider.dbservtecpc.MainWindow;
+import com.diegoschneider.dbservtecpc.clientes.ClientTable;
 public class PanelClientes {
 
-	private static JTable table_clientes;
+	private static ClientTable table_clientes;
 	
 	public PanelClientes(JTabbedPane tabbedPane) {
 		JPanel panel_clientes = new JPanel();
@@ -27,16 +27,14 @@ public class PanelClientes {
 		scrollPane.setBounds(10, 11, 409, 328);
 		panel_clientes.add(scrollPane);
 		
-		table_clientes = new JTable();
-		table_clientes.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-		table_clientes.getTableHeader().setReorderingAllowed(false);
-		table_clientes.setAutoCreateRowSorter(true);
-		scrollPane.setViewportView(table_clientes);
 		try {
-			table_clientes.setModel(ClientesTableModel());
-		} catch (SQLException e) {
-			e.printStackTrace();
+			table_clientes = new ClientTable();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+			JOptionPane.showMessageDialog(scrollPane, "Error al cargar los clientes", "Error", JOptionPane.ERROR_MESSAGE);
 		}
+		
+		scrollPane.setViewportView(table_clientes);
 		
 		JPanel panel = new JPanel();
 		panel.setBounds(10, 350, 409, 23);
@@ -56,10 +54,7 @@ public class PanelClientes {
 		btnEditarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				try {
-					Object data = (Object)table_clientes.getValueAt(table_clientes.getSelectedRow(), 0);
-					int id = Integer.parseInt(data.toString());
-					EditClientDialog editclientdialog = new EditClientDialog(id);
-					editclientdialog.setVisible(true);
+					table_clientes.OpenEditDialog();
 				} catch (IndexOutOfBoundsException ex) {
 					
 				}
@@ -89,17 +84,10 @@ public class PanelClientes {
 	
 	public static void ReloadTable() {
 		try {
-			table_clientes.setModel(ClientesTableModel());
+			table_clientes.ReloadTable();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-	}
-	
-	public static FillTable ClientesTableModel() throws SQLException {
-		Statement stmt = MainWindow.con.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT id,nombre, apellido, direccion, telefono, telefono2 FROM clientes");
-		FillTable model = new FillTable(rs);
-		return model;
 	}
 	
 }

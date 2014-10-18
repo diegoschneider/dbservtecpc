@@ -14,6 +14,7 @@ import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
 import javax.swing.SwingConstants;
@@ -21,6 +22,8 @@ import javax.swing.UIManager;
 import javax.swing.border.EmptyBorder;
 
 import org.h2.jdbcx.JdbcDataSource;
+
+import com.diegoschneider.dbservtecpc.clientes.PanelClientes;
 
 public class MainWindow extends JFrame {
 
@@ -30,13 +33,12 @@ public class MainWindow extends JFrame {
 	private static final long serialVersionUID = 4910287097969392192L;
 	private JPanel contentPane;
 	private JTabbedPane tabbedPane;
-	static Connection con;
+	public static Connection con;
 
 	/**
-	 * Launch the application.
-	 * @throws IOException 
+	 * Launch the application. 
 	 */
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		
 		JdbcDataSource ds = new JdbcDataSource();
 		ds.setURL("jdbc:h2:./servtecpc;ifexists=true");
@@ -62,8 +64,12 @@ public class MainWindow extends JFrame {
 						} catch (IOException e2) {
 							e2.printStackTrace();
 						} finally {
-							stream.close();
-							resStreamOut.close();
+							try {
+								stream.close();
+								resStreamOut.close();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
 						}
 						//Conectamos a la nueva bd
 						ds.setURL("jdbc:h2:./servtecpc");
@@ -74,6 +80,7 @@ public class MainWindow extends JFrame {
 					break;
 				//Si ya está abierta
 				case 90020:
+					JOptionPane.showMessageDialog(null, "Ya hay una instancia del programa", "Error", JOptionPane.ERROR_MESSAGE);
 					System.exit(0);
 					break;
 				default:
@@ -87,6 +94,7 @@ public class MainWindow extends JFrame {
 					UIManager.setLookAndFeel(
 							UIManager.getSystemLookAndFeelClassName());
 					MainWindow frame = new MainWindow();
+					frame.setTitle("DB Servicio Técnico PC");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
