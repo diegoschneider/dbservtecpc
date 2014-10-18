@@ -16,10 +16,8 @@ public class NewClientDialog extends ClientDialog {
 	
 	public NewClientDialog() {
 		super();
-		setActionListeners(this);
 	}
-	
-	// TODO Los clientes se crean dos veces 
+
 	public void okPressed() {
 		ArrayList<String> data = getValues();
 		String sql = "INSERT INTO clientes(nombre, apellido, direccion, telefono, telefono2) values(?,?,?,?,?)";

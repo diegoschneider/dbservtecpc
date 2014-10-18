@@ -8,14 +8,17 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 
 public class InputDialog extends JDialog implements ActionListener{
 
@@ -29,7 +32,20 @@ public class InputDialog extends JDialog implements ActionListener{
 	
 	public InputDialog(String title, String[] fields) {
 		this.setTitle(title);
-		EscapeListener.addEscapeListener(this);
+		
+		//Escape Listener
+		ActionListener escListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispatchEvent(new WindowEvent(InputDialog.this, WindowEvent.WINDOW_CLOSING));
+			}
+		};
+		
+		getRootPane().registerKeyboardAction(escListener,
+				KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+				JComponent.WHEN_IN_FOCUSED_WINDOW);
+		
+		
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setLocationRelativeTo(null); 
