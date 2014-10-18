@@ -36,10 +36,9 @@ public class MainWindow extends JFrame {
 	public static Connection con;
 
 	/**
-	 * Launch the application.
-	 * @throws IOException 
+	 * Launch the application. 
 	 */
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) {
 		
 		JdbcDataSource ds = new JdbcDataSource();
 		ds.setURL("jdbc:h2:./servtecpc;ifexists=true");
@@ -65,8 +64,12 @@ public class MainWindow extends JFrame {
 						} catch (IOException e2) {
 							e2.printStackTrace();
 						} finally {
-							stream.close();
-							resStreamOut.close();
+							try {
+								stream.close();
+								resStreamOut.close();
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
 						}
 						//Conectamos a la nueva bd
 						ds.setURL("jdbc:h2:./servtecpc");
