@@ -86,7 +86,7 @@ public class DataTable extends JTable {
 	 */
 	public void OpenEditDialog() {
 		try {
-			int id = GetIDAtRow(getSelectedRow());
+			int id = getRowId(getSelectedRow());
 			OpenEditDialog(id);
 		} catch(IndexOutOfBoundsException e) {
 			//Do nothing
@@ -109,7 +109,7 @@ public class DataTable extends JTable {
 	 */
 	public void DeleteRow() {
 		try {
-			int id = GetIDAtRow(getSelectedRow());
+			int id = getRowId(getSelectedRow());
 			DeleteRow(id);
 		} catch(IndexOutOfBoundsException e) {
 			//Do nothing
@@ -130,10 +130,8 @@ public class DataTable extends JTable {
 	 * @return ID de registro de la columna
 	 * @throws IndexOutOfBoundsException Si no hay nada seleccionado
 	 */
-	public int GetIDAtRow(int row) throws IndexOutOfBoundsException {
-		Object data = (Object) getValueAt(row, 0);
-    	int id = Integer.parseInt(data.toString());
-    	return id;
+	public int getRowId(int row) throws IndexOutOfBoundsException {
+		return ((FillTable) this.getModel()).getRowId(0);
 	}
 
 }
