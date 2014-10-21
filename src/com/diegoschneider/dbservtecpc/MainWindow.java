@@ -1,6 +1,7 @@
 package com.diegoschneider.dbservtecpc;
 
 import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -104,7 +105,6 @@ public class MainWindow extends JFrame {
 	 * Create the frame.
 	 */
 	public MainWindow() {
-		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 450);
 		contentPane = new JPanel();
@@ -135,5 +135,7 @@ public class MainWindow extends JFrame {
 		
 		JLabel lblBancaAmiwoVamos_1 = new JLabel("Banca, amiwo, vamos de a poco (^w^)");
 		panel_presupuestos.add(lblBancaAmiwoVamos_1);
+		
+		setMinimumSize(new Dimension(450,300));
 	}
 }

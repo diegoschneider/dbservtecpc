@@ -35,7 +35,7 @@ public class InputDialog extends JDialog implements ActionListener{
 	 * @param fields String[] título de los campos 
 	 */
 	public InputDialog(String title, String[] fields) {
-		this.setTitle(title);
+		setTitle(title);
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setLocationRelativeTo(null); 
