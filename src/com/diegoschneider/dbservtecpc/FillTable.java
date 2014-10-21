@@ -12,20 +12,27 @@ public class FillTable extends AbstractTableModel{
 	private int rowCount;
 	private int columnCount;
 	private ArrayList<Object[]> data=new ArrayList<Object[]>();
+	private ArrayList<Integer> id =new ArrayList<Integer>();
  
+	/**
+	 * TableModel
+	 * Llena una tabla con los datos de una Query
+	 * La primera columna debe ser el ID
+	 * 
+	 * @param _rs ResultSet desde el cual llenar la tabla
+	 * @throws SQLException
+	 */
 	public FillTable(ResultSet _rs) throws SQLException {
-		setRS(_rs);
-	}
- 
-	public void setRS(ResultSet _rs) throws SQLException {
 		this.rs=_rs;
 		ResultSetMetaData metaData=_rs.getMetaData();
 		rowCount=0;
-		columnCount=metaData.getColumnCount();
+		columnCount=metaData.getColumnCount()-1;
 		while(_rs.next()) {
 			Object[] row=new Object[columnCount];
-			for(int j=0;j<columnCount;j++){
-				row[j]=_rs.getObject(j+1);
+			id.add(Integer.parseInt(_rs.getObject(1).toString()));
+			
+			for(int j=1;j<=columnCount;j++){
+				row[j-1]=_rs.getObject(j+1);
 			}
 			data.add(row);
 			rowCount++;
@@ -48,13 +55,20 @@ public class FillTable extends AbstractTableModel{
 	public String getColumnName(int columnIndex){
 		try{
 			ResultSetMetaData metaData=rs.getMetaData();
-			return metaData.getColumnName(columnIndex+1);
+			return metaData.getColumnName(columnIndex+2);
 		} catch(Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
 	
-	
+	/**
+	 * Devuelve la ID del registro de esa columna
+	 * @param rowIndex
+	 * @return ID del registro de la columna
+	 */
+	public int getRowId(int rowIndex) {
+		return id.get(rowIndex);
+	}
 	
 }

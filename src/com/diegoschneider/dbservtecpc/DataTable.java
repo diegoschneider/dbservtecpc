@@ -79,9 +79,14 @@ public class DataTable extends JTable {
 		
 	}
 	
+	/**
+	 * Llama a OpenEditDialog(id) con el ID de la columna seleccionada
+	 * Si no hay nada seleccionado, no hace nada.
+	 * @see OpenEditDialog(int id)
+	 */
 	public void OpenEditDialog() {
 		try {
-			int id = GetIDAtRow(getSelectedRow());
+			int id = getRowId(getSelectedRow());
 			OpenEditDialog(id);
 		} catch(IndexOutOfBoundsException e) {
 			//Do nothing
@@ -89,27 +94,44 @@ public class DataTable extends JTable {
 
 	}
 	
+	/**
+	 * Función para Override
+	 * @param id ID del registro con el que accionar
+	 */
 	public void OpenEditDialog(int id) {
 		
 	}
 	
+	/**
+	 * Llama a DeleteRow(id) con el ID de la columna seleccionada
+	 * Si no hay nada seleccionado, no hace nada.
+	 * @see DeleteRow(int id)
+	 */
 	public void DeleteRow() {
 		try {
-			int id = GetIDAtRow(getSelectedRow());
+			int id = getRowId(getSelectedRow());
 			DeleteRow(id);
 		} catch(IndexOutOfBoundsException e) {
 			//Do nothing
 		}
 	}
 	
+	/**
+	 * Función para Override
+	 * @param id ID del registro con el que accionar
+	 */
 	public void DeleteRow(int id) {
 		
 	}
 	
-	public int GetIDAtRow(int row) throws IndexOutOfBoundsException {
-		Object data = (Object) getValueAt(row, 0);
-    	int id = Integer.parseInt(data.toString());
-    	return id;
+	/**
+	 * Devuelve la ID de registro de una columna
+	 * @param row Columna a leer
+	 * @return ID de registro de la columna
+	 * @throws IndexOutOfBoundsException Si no hay nada seleccionado
+	 */
+	public int getRowId(int row) throws IndexOutOfBoundsException {
+		return ((FillTable) this.getModel()).getRowId(0);
 	}
 
 }

@@ -1,6 +1,7 @@
 package com.diegoschneider.dbservtecpc;
 
 import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -23,13 +24,10 @@ import javax.swing.border.EmptyBorder;
 
 import org.h2.jdbcx.JdbcDataSource;
 
-import com.diegoschneider.dbservtecpc.clientes.PanelClientes;
+import com.diegoschneider.dbservtecpc.clientes.ClientPanel;
 
 public class MainWindow extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4910287097969392192L;
 	private JPanel contentPane;
 	private JTabbedPane tabbedPane;
@@ -107,7 +105,6 @@ public class MainWindow extends JFrame {
 	 * Create the frame.
 	 */
 	public MainWindow() {
-		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 450);
 		contentPane = new JPanel();
@@ -129,7 +126,7 @@ public class MainWindow extends JFrame {
 		panel_inicio.add(lblBienvenido);
 		
 		
-		new PanelClientes(tabbedPane);
+		new ClientPanel(tabbedPane);
 		
 		//Panel Presupuestos
 		JPanel panel_presupuestos = new JPanel();
@@ -138,5 +135,7 @@ public class MainWindow extends JFrame {
 		
 		JLabel lblBancaAmiwoVamos_1 = new JLabel("Banca, amiwo, vamos de a poco (^w^)");
 		panel_presupuestos.add(lblBancaAmiwoVamos_1);
+		
+		setMinimumSize(new Dimension(450,300));
 	}
 }
