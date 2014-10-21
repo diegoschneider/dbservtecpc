@@ -13,7 +13,7 @@ import com.diegoschneider.dbservtecpc.MainWindow;
 public class ClientDialog extends InputDialog {
 
 	private static final long serialVersionUID = 1L;
-	private static String[] columns = {"Nombre", "Apellido", "Dirección", "Teléfono", "Teléfono2"};
+	private static String[] columns = {"Nombre", "Apellido", "Dirección", "Teléfono", "Teléfono2", "Email"};
 	
 	/**
 	 * Crea un diálogo primitivo de nuevo cliente

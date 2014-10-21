@@ -23,7 +23,7 @@ public class EditClientDialog extends ClientDialog {
 	public void okPressed() {
 		ArrayList<String> data = getValues();
 		data.add(Integer.toString(this.id));
-		String sql = "UPDATE clientes SET nombre=?, apellido=?, direccion=?, telefono=?, telefono2=? WHERE id=?";
+		String sql = "UPDATE clientes SET nombre=?, apellido=?, direccion=?, telefono=?, telefono2=?, email=? WHERE id=?";
 		try {
 			PreparedStatement stmt = MainWindow.con.prepareStatement(sql);
 			int i = 1;

@@ -53,7 +53,7 @@ public class ClientTable extends DataTable {
 	 */
 	public static FillTable ClientesTableModel() throws SQLException {
 		Statement stmt = MainWindow.con.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT id,nombre, apellido, direccion, telefono, telefono2 FROM clientes");
+		ResultSet rs = stmt.executeQuery("SELECT id,nombre, apellido, direccion, telefono, telefono2, email FROM clientes");
 		FillTable model = new FillTable(rs);
 		return model;
 	}
