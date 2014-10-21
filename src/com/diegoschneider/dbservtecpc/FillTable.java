@@ -13,11 +13,14 @@ public class FillTable extends AbstractTableModel{
 	private int columnCount;
 	private ArrayList<Object[]> data=new ArrayList<Object[]>();
  
+	/**
+	 * TableModel
+	 * Llena una tabla con los datos de una Query
+	 * 
+	 * @param _rs ResultSet desde el cual llenar la tabla
+	 * @throws SQLException
+	 */
 	public FillTable(ResultSet _rs) throws SQLException {
-		setRS(_rs);
-	}
- 
-	public void setRS(ResultSet _rs) throws SQLException {
 		this.rs=_rs;
 		ResultSetMetaData metaData=_rs.getMetaData();
 		rowCount=0;

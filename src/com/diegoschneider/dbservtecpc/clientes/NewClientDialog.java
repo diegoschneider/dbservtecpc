@@ -1,5 +1,6 @@
 package com.diegoschneider.dbservtecpc.clientes;
 
+import java.awt.event.WindowEvent;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -28,8 +29,8 @@ public class NewClientDialog extends ClientDialog {
 				stmt.setString(i++, string);
 			}
 			stmt.execute();
-			PanelClientes.ReloadTable();
-			this.dispose();
+			ClientPanel.ReloadTable();
+			this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, "Error al guardar el dato", "Error", JOptionPane.ERROR_MESSAGE);
 			e.printStackTrace();

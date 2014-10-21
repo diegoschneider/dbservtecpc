@@ -29,23 +29,13 @@ public class InputDialog extends JDialog implements ActionListener{
 	private JButton okButton;
 	private JButton cancelButton;
 	
-	
+	/**
+	 * Clase primitiva para crear diálogos de ingreso
+	 * @param title Título del diálogo
+	 * @param fields String[] título de los campos 
+	 */
 	public InputDialog(String title, String[] fields) {
 		this.setTitle(title);
-		
-		//Escape Listener
-		ActionListener escListener = new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				dispatchEvent(new WindowEvent(InputDialog.this, WindowEvent.WINDOW_CLOSING));
-			}
-		};
-		
-		getRootPane().registerKeyboardAction(escListener,
-				KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
-				JComponent.WHEN_IN_FOCUSED_WINDOW);
-		
-		
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setModalityType(ModalityType.APPLICATION_MODAL);
 		setLocationRelativeTo(null); 
@@ -83,12 +73,6 @@ public class InputDialog extends JDialog implements ActionListener{
 				textField.addFocusListener(new java.awt.event.FocusAdapter() {
 				    public void focusGained(java.awt.event.FocusEvent evt) {
 				    	textField.selectAll();
-				        /*SwingUtilities.invokeLater(new Runnable() {
-				            @Override
-				            public void run() {
-				                textField.selectAll();
-				            }
-				        });*/
 				    }
 				});
 				textfields.add(textField);
@@ -125,13 +109,22 @@ public class InputDialog extends JDialog implements ActionListener{
 		Dimension size = getSize();
 		size = new Dimension(size.width+100, size.height);
 		setMinimumSize(size);
+		
+		okButton.addActionListener(this);
+		cancelButton.addActionListener(this);
+		
+		//Escape Listener
+		ActionListener escListener = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispatchEvent(new WindowEvent(InputDialog.this, WindowEvent.WINDOW_CLOSING));
+			}
+		};
+		
+		getRootPane().registerKeyboardAction(escListener,
+				KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+				JComponent.WHEN_IN_FOCUSED_WINDOW);
 	}
-	
-	public void setActionListeners(InputDialog gd) {
-		okButton.addActionListener(gd);
-		cancelButton.addActionListener(gd);
-	}
-	
 	
 	@Override
 	public void actionPerformed(ActionEvent ae) {
@@ -147,6 +140,10 @@ public class InputDialog extends JDialog implements ActionListener{
 	public void okPressed() {
 	}
 	
+	/**
+	 * 
+	 * @return ArrayList<String> Los valores de los campos 
+	 */
 	public ArrayList<String> getValues() {
 		ArrayList<String> data = new ArrayList<String>();
 		for (JTextField tf : textfields) {
@@ -155,6 +152,10 @@ public class InputDialog extends JDialog implements ActionListener{
 		return data;
 	}
 
+	/**
+	 * Llena los campos con <i>data</i>
+	 * @param data Los datos a cargar
+	 */
 	public void setValues(ArrayList<String> data) {
 		int i = 0;
 		for (String string : data) {

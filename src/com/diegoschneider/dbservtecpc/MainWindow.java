@@ -23,13 +23,10 @@ import javax.swing.border.EmptyBorder;
 
 import org.h2.jdbcx.JdbcDataSource;
 
-import com.diegoschneider.dbservtecpc.clientes.PanelClientes;
+import com.diegoschneider.dbservtecpc.clientes.ClientPanel;
 
 public class MainWindow extends JFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 4910287097969392192L;
 	private JPanel contentPane;
 	private JTabbedPane tabbedPane;
@@ -129,7 +126,7 @@ public class MainWindow extends JFrame {
 		panel_inicio.add(lblBienvenido);
 		
 		
-		new PanelClientes(tabbedPane);
+		new ClientPanel(tabbedPane);
 		
 		//Panel Presupuestos
 		JPanel panel_presupuestos = new JPanel();
