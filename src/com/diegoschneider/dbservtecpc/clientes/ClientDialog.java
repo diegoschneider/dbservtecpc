@@ -31,13 +31,14 @@ public class ClientDialog extends InputDialog {
 		try {
 			ArrayList<String> data = new ArrayList<String>();
 			Statement stmt = MainWindow.con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT nombre, apellido, direccion, telefono, telefono2 FROM clientes WHERE id="+id);
+			ResultSet rs = stmt.executeQuery("SELECT nombre, apellido, direccion, telefono, telefono2, email FROM clientes WHERE id="+id);
 			while(rs.next()) {
 				data.add(rs.getString("nombre"));
 				data.add(rs.getString("apellido"));
 				data.add(rs.getString("direccion"));
 				data.add(rs.getString("telefono"));
 				data.add(rs.getString("telefono2"));
+				data.add(rs.getString("email"));
 			}
 			
 			this.setValues(data);
