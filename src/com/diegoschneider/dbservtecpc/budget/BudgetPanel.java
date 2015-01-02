@@ -1,5 +1,6 @@
-package com.diegoschneider.dbservtecpc.clientes;
+package com.diegoschneider.dbservtecpc.budget;
 
+import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -8,24 +9,28 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 
-public class ClientPanel extends JPanel {
+import com.diegoschneider.dbservtecpc.clients.ClientTable;
+import com.diegoschneider.dbservtecpc.clients.NewClientDialog;
 
+public class BudgetPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private static ClientTable table_clientes;
-	
+	private BudgetTable table_budgets;
+
 	/**
-	 * Crea el panel de clientes
-	 * @param tabbedPane TabbedPane en el cual ubicar el panel
+	 * Crea el panel de presupuestos
+	 * @param tabbedPane
 	 */
-	public ClientPanel(JTabbedPane tabbedPane) {
+	public BudgetPanel(JTabbedPane tabbedPane) {
+		
 		//Creamos el panel y lo agregamos al padre
 		super(new GridBagLayout());
-		tabbedPane.addTab("Clientes", null, this, null);
+		tabbedPane.addTab("Presupuestos", this);
 		
 		//Agregamos el scrollPanel para la tabla y lo agregamos a PanelClientes
 		JScrollPane scrollPane = new JScrollPane();
@@ -39,15 +44,15 @@ public class ClientPanel extends JPanel {
 		add(scrollPane, gbc_sp);
 		
 		try {
-			table_clientes = new ClientTable();
+			table_budgets = new BudgetTable();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 			JOptionPane.showMessageDialog(scrollPane, "Error al cargar los clientes", "Error", JOptionPane.ERROR_MESSAGE);
 		}
 		
-		scrollPane.setViewportView(table_clientes);
+		scrollPane.setViewportView(table_budgets);
 		
-		// Creamos el panel para los botones inferiores
+		//Creamos el panel para los botones inferiores
 		JButton btnAgregarCliente = new JButton("Agregar cliente");
 		btnAgregarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -67,7 +72,7 @@ public class ClientPanel extends JPanel {
 		btnEditarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
 				try {
-					table_clientes.OpenEditDialog();
+					table_budgets.OpenEditDialog();
 				} catch (IndexOutOfBoundsException ex) {
 					
 				}
@@ -84,7 +89,7 @@ public class ClientPanel extends JPanel {
 		JButton btnEliminarCliente = new JButton("Eliminar cliente");
 		btnEliminarCliente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ev) {
-				table_clientes.DeleteRow();
+				table_budgets.DeleteRow();
 				ReloadTable();
 			}
 		});
@@ -96,16 +101,5 @@ public class ClientPanel extends JPanel {
 		gbc_ElC.fill = GridBagConstraints.HORIZONTAL;
 		add(btnEliminarCliente,gbc_ElC);
 	}
-	
-	/**
-	 * Llama a table_clientes.ReloadTable() 
-	 */
-	public static void ReloadTable() {
-		try {
-			table_clientes.ReloadTable();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-	}
-	
+
 }

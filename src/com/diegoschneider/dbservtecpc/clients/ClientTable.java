@@ -1,4 +1,4 @@
-package com.diegoschneider.dbservtecpc.clientes;
+package com.diegoschneider.dbservtecpc.clients;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

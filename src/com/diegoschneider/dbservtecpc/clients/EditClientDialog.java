@@ -1,4 +1,4 @@
-package com.diegoschneider.dbservtecpc.clientes;
+package com.diegoschneider.dbservtecpc.clients;
 
 import java.awt.event.WindowEvent;
 import java.sql.PreparedStatement;
@@ -10,18 +10,20 @@ import javax.swing.JOptionPane;
 import com.diegoschneider.dbservtecpc.MainWindow;
 
 
+public class EditClientDialog extends ClientDialog {
 
-public class NewClientDialog extends ClientDialog {
+	private static final long serialVersionUID = -1124059762563655909L;
+	private int id;
 
-	private static final long serialVersionUID = -3098292040902585698L;
-	
-	public NewClientDialog() {
-		super();
+	public EditClientDialog(int id) {
+		super(id);
+		this.id = id;
 	}
-
+	
 	public void okPressed() {
 		ArrayList<String> data = getValues();
-		String sql = "INSERT INTO clientes(nombre, apellido, direccion, telefono, telefono2, email) values(?,?,?,?,?,?)";
+		data.add(Integer.toString(this.id));
+		String sql = "UPDATE clientes SET nombre=?, apellido=?, direccion=?, telefono=?, telefono2=?, email=? WHERE id=?";
 		try {
 			PreparedStatement stmt = MainWindow.con.prepareStatement(sql);
 			int i = 1;

@@ -24,7 +24,8 @@ import javax.swing.border.EmptyBorder;
 
 import org.h2.jdbcx.JdbcDataSource;
 
-import com.diegoschneider.dbservtecpc.clientes.ClientPanel;
+import com.diegoschneider.dbservtecpc.budget.BudgetPanel;
+import com.diegoschneider.dbservtecpc.clients.ClientPanel;
 
 public class MainWindow extends JFrame {
 
@@ -117,7 +118,7 @@ public class MainWindow extends JFrame {
 		
 		//Panel inicio
 		JPanel panel_inicio = new JPanel();
-		tabbedPane.addTab("Inicio", null, panel_inicio, null);
+		tabbedPane.addTab("Inicio", panel_inicio);
 		panel_inicio.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		JLabel lblBienvenido = new JLabel("Bienvenido! :3");
@@ -129,12 +130,7 @@ public class MainWindow extends JFrame {
 		new ClientPanel(tabbedPane);
 		
 		//Panel Presupuestos
-		JPanel panel_presupuestos = new JPanel();
-		tabbedPane.addTab("Presupuestos", null, panel_presupuestos, null);
-		panel_presupuestos.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
-		
-		JLabel lblBancaAmiwoVamos_1 = new JLabel("Banca, amiwo, vamos de a poco (^w^)");
-		panel_presupuestos.add(lblBancaAmiwoVamos_1);
+		new BudgetPanel(tabbedPane);
 		
 		setMinimumSize(new Dimension(450,300));
 	}
